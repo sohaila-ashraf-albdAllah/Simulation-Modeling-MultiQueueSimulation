@@ -110,7 +110,6 @@ namespace MultiQueueModels
 
         public void Simulate()
         {
-
             int CurrentCustomer = 1;
             SimulationCase OldCase = new SimulationCase();
             Random random = new Random();
@@ -119,7 +118,6 @@ namespace MultiQueueModels
             OldCase.ArrivalTime = 0;
             OldCase.InterArrival = 0;
             OldCase.EndTime = 0;
-            bool cond = true;
             while (true)
             {
                 //Our Main code!
