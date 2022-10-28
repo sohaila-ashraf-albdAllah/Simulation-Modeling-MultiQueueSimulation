@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MultiQueueModels
 {
@@ -110,18 +111,19 @@ namespace MultiQueueModels
 
         public void Simulate()
         {
-            int CurrentCustomer = 1;
-            SimulationCase OldCase = new SimulationCase();
-            Random random = new Random();
+            int existingCustomerNumber = 1;
+            int ServerIndex = 0;
+            SimulationCase lastCustomer = new SimulationCase();
+            Random interArrivalRandom = new Random();
             Random ServiceRandom = new Random();
             Random ServerRandom = new Random();
-            OldCase.ArrivalTime = 0;
-            OldCase.InterArrival = 0;
-            OldCase.EndTime = 0;
+            lastCustomer.ArrivalTime = 0;
+            lastCustomer.InterArrival = 0;
+            lastCustomer.EndTime = 0;
             while (true)
             {
                 //Our Main code!
-                if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.NumberOfCustomers )&& CurrentCustomer >StoppingNumber)
+                if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.NumberOfCustomers ) && existingCustomerNumber > StoppingNumber)
                 {
                     break;
                 }
@@ -129,73 +131,73 @@ namespace MultiQueueModels
                 {
                     break;
                 }
-                SimulationCase NewCase = new SimulationCase();
-                NewCase.CustomerNumber = CurrentCustomer;
-                NewCase.RandomInterArrival = random.Next(1, 101);
-                NewCase.InterArrival = checkRange( NewCase.RandomInterArrival);
+                SimulationCase newCustomer = new SimulationCase();
+                newCustomer.CustomerNumber = existingCustomerNumber;
+                newCustomer.RandomInterArrival = interArrivalRandom.Next(1, 101);
+                newCustomer.InterArrival = checkRange(newCustomer.RandomInterArrival);
 
-                if (CurrentCustomer == 1)
-                    NewCase.ArrivalTime = OldCase.ArrivalTime;
-                else
-                    NewCase.ArrivalTime = OldCase.ArrivalTime + NewCase.InterArrival;
-                //Server
-                int ServerIndex = 0;
-                if (CheckIdle(NewCase.ArrivalTime))
+                if (existingCustomerNumber == 1)
                 {
-                    NewCase.TimeInQueue = 0;
+                    newCustomer.ArrivalTime = lastCustomer.ArrivalTime;
+                }
+                else
+                {
+                    newCustomer.ArrivalTime = lastCustomer.ArrivalTime + newCustomer.InterArrival;
+                }
+                //if there is a avalid servers
+                if (idleServersList(newCustomer.ArrivalTime) == 1)
+                {
+                    newCustomer.TimeInQueue = 0;
                     if (SelectionMethod == Enums.SelectionMethod.HighestPriority)
                     {
-                        for (int i = 0; i < Servers.Count; i++)
-                        {
-                            if (Servers[i].LastFinishTime <= NewCase.ArrivalTime)
-                            {
-                                NewCase.AssignedServer = Servers[i];
-                                ServerIndex = i;
-                                break;
-                            }
-                        }
+                        newCustomer.AssignedServer = availableServers[0];
+                        ServerIndex = availableServers[0].ID;
+                        availableServers.RemoveAt(0);
                     }
                     else if (SelectionMethod == Enums.SelectionMethod.Random)
                     {
-                        int RandomServer = ServerRandom.Next(0, AvailableList.Count);
-                        NewCase.AssignedServer = AvailableList[RandomServer];
-                        ServerIndex = AvailableList[RandomServer].ID - 1;
+                        int maxRang = availableServers.Count;
+                        int RandomServer = ServerRandom.Next(0, maxRang);
+                        newCustomer.AssignedServer = availableServers[RandomServer];
+                        ServerIndex = availableServers[RandomServer].ID;
                     }
-                    NewCase.ServerIndex = ServerIndex + 1;
-                    if (NewCase.AssignedServer.LastFinishTime > NewCase.ArrivalTime)
+                    newCustomer.indexOfServers = ServerIndex;
+                    
+                    if (newCustomer.AssignedServer.last_finish_time > newCustomer.ArrivalTime)
                     {
-                        NewCase.StartTime = NewCase.AssignedServer.LastFinishTime;
+                        newCustomer.StartTime = newCustomer.AssignedServer.last_finish_time;
                     }
                     else
                     {
-                        NewCase.StartTime = NewCase.ArrivalTime;
+                        newCustomer.StartTime = newCustomer.ArrivalTime;
 
                     }
-                    NewCase.RandomService = ServiceRandom.Next(1, 101);
-                    if (NewCase.RandomService == 0)
+                    newCustomer.RandomService = ServiceRandom.Next(1, 101);
+                    //////////???????????????
+                   /* if (newCustomer.RandomService == 0)
                     {
-                        NewCase.RandomService = 1;
-                    }
-                    NewCase.ServiceTime = GetWithinRange(NewCase.AssignedServer.TimeDistribution, NewCase.RandomService);
-                    NewCase.EndTime = NewCase.StartTime + NewCase.ServiceTime;
-                    Servers[ServerIndex].LastFinishTime = NewCase.EndTime;
+                        newCustomer.RandomService = 1;
+                    }*/
+                    newCustomer.ServiceTime = checkRange(newCustomer.RandomService);
+                    newCustomer.EndTime = newCustomer.StartTime + newCustomer.ServiceTime;
+                    Servers[ServerIndex].last_finish_time = newCustomer.EndTime;
                 }
                 else
                 {
                     //Time in queue
-                    ServerIndex = GetFirstFinishServer();
-                    NewCase.AssignedServer = Servers[ServerIndex];
-                    NewCase.StartTime = NewCase.AssignedServer.LastFinishTime;
-                    NewCase.TimeInQueue = NewCase.StartTime - NewCase.ArrivalTime;
-                    NewCase.RandomService = ServiceRandom.Next(1, 101);
-                    NewCase.ServiceTime = GetWithinRange(NewCase.AssignedServer.TimeDistribution, NewCase.RandomService);
-                    NewCase.EndTime = NewCase.StartTime + NewCase.ServiceTime;
-                    NewCase.ServerIndex = ServerIndex + 1;
-                    Servers[ServerIndex].LastFinishTime = NewCase.EndTime;
+                    ServerIndex = First_Server_Finished();
+                    newCustomer.AssignedServer = Servers[ServerIndex];
+                    newCustomer.StartTime = newCustomer.AssignedServer.last_finish_time;
+                    newCustomer.TimeInQueue = newCustomer.StartTime - newCustomer.ArrivalTime;
+                    newCustomer.RandomService = ServiceRandom.Next(1, 101);
+                    newCustomer.ServiceTime = checkRange(newCustomer.RandomService);
+                    newCustomer.EndTime = newCustomer.StartTime + newCustomer.ServiceTime;
+                    newCustomer.indexOfServers = ServerIndex + 1;
+                    Servers[ServerIndex].last_finish_time = newCustomer.EndTime;
                 }
-                SimulationTable.Add(NewCase);
-                OldCase = NewCase;
-                CurrentCustomer++;
+                SimulationTable.Add(newCustomer);
+                lastCustomer = newCustomer;
+                existingCustomerNumber++;
             }
 
             //Don't forget PerformanceMeasures
