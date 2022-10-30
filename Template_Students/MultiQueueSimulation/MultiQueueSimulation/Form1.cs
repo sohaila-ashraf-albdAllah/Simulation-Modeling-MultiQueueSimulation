@@ -24,11 +24,14 @@ namespace MultiQueueSimulation
         public SimulationSystem System1 = new SimulationSystem();
         public List<Server> Servers = new List<Server>();
         public List<TimeDistribution> list = new List<TimeDistribution>();
+        public int numberOfTestCase = 0;
+        public string TestingResults;
         public void read_testCase(int n)
         {
             string path = string.Empty;
             path = ("C:\\Users\\Al Mostafa\\Desktop\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase" + n + ".txt");
             string[] lines = File.ReadAllLines(path);
+            numberOfTestCase = n;
             textBox1.Text = lines[4];
             textBox3.Text = lines[1];
             System.NumberOfServers = int.Parse(lines[1]);
@@ -153,8 +156,27 @@ namespace MultiQueueSimulation
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string TestingResults = TestingManager.Test(System, Constants.FileNames.TestCase2);
-            MessageBox.Show(TestingResults);
+            switch(numberOfTestCase)
+            {
+                case 1:
+                    {
+                        TestingResults = TestingManager.Test(System, Constants.FileNames.TestCase1);
+                        MessageBox.Show(TestingResults);
+                        break;
+                    }             
+                case 2:
+                    {
+                        TestingResults = TestingManager.Test(System, Constants.FileNames.TestCase2);
+                        MessageBox.Show(TestingResults);
+                        break;
+                    }                
+                case 3:
+                    {
+                        TestingResults = TestingManager.Test(System, Constants.FileNames.TestCase3);
+                        MessageBox.Show(TestingResults);
+                        break;
+                    }
+            }
         }
     }
 }

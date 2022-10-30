@@ -11,45 +11,34 @@ namespace MultiQueueModels
         public decimal AverageWaitingTime { get; set; }
         public int MaxQueueLength { get; set; }
         public decimal WaitingProbability { get; set; }
-        public struct PAIR
+        public void MaxQLength(SimulationSystem S_sys)//d
         {
-            public int first;
-            public int second;
-        }
-        public void MaxQLength(SimulationSystem S_sys)/////////////
-        {
-            List<int> PartialSum = new List<int>();
-            List<PAIR> Ranges = new List<PAIR>();
-
-            int mx = -100000;
-            for (int i = 0; i < S_sys.SimulationTable.Count; i++)
+            int temp;
+            for (int i = S_sys.Servers.Count; i < S_sys.SimulationTable.Count; i++)
             {
-                int cur = S_sys.SimulationTable[i].EndTime;
-                if (mx < cur)
+                temp = 0;
+                for (int j = i +1; j < S_sys.SimulationTable.Count; j++)
                 {
-                    mx = cur;
+                    if(S_sys.SimulationTable[i].TimeInQueue > 0)
+                    {
+                        if (S_sys.SimulationTable[j].ArrivalTime < S_sys.SimulationTable[i].StartTime 
+                            && S_sys.SimulationTable[j].TimeInQueue > 0)
+                        {
+                            temp++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }             
                 }
-                PAIR tmp;
-                tmp.first = S_sys.SimulationTable[i].ArrivalTime;
-                tmp.second = S_sys.SimulationTable[i].StartTime;
-                if (tmp.first != tmp.second) Ranges.Add(tmp);
-            }
-            for (int i = 0; i <= mx; i++)
-            {
-                PartialSum.Add(0);
-            }
-            for (int i = 0; i < Ranges.Count; i++)
-            {
-                PartialSum[Ranges[i].first]++;
-                PartialSum[Ranges[i].second + 1]--;
-            }
-            MaxQueueLength = -100000;
-            for (int i = 1; i < PartialSum.Count; i++)
-            {
-                PartialSum[i] += PartialSum[i - 1];
-                if (MaxQueueLength < PartialSum[i])
+                if (S_sys.SimulationTable[i].TimeInQueue > 0)
                 {
-                    MaxQueueLength = PartialSum[i];
+                    temp++;
+                }
+                if (temp > MaxQueueLength)
+                {
+                    MaxQueueLength = temp;
                 }
             }
         }
