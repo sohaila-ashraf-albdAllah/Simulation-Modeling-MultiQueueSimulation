@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using MultiQueueModels;
 using MultiQueueTesting;
 
@@ -19,56 +20,95 @@ namespace MultiQueueSimulation
         {
             InitializeComponent();
         }
-        List<TimeDistribution> list = new List<TimeDistribution>();
-        struct inputs
+        public SimulationSystem System = new SimulationSystem();
+        public SimulationSystem System1 = new SimulationSystem();
+        public List<Server> Servers = new List<Server>();
+        public List<TimeDistribution> list = new List<TimeDistribution>();
+        public void read_testCase(int n)
         {
-
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string filePath = String.Empty;
-            string fileExe = String.Empty;
-            OpenFileDialog dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                filePath = dialog.FileName;
-                //Console.WriteLine(filePath);
-               
-
-            }
-          
-        }
-
-        private void radioButton6_CheckedChanged(object sender, EventArgs e)
-        {
-            string[] lines = File.ReadAllLines("C:\\Users\\aisha\\source\\repos\\sohaila-ashraf-albdAllah\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase1.txt");
+            string path = string.Empty;
+            path = ("C:\\Users\\Al Mostafa\\Desktop\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase" + n + ".txt");
+            string[] lines = File.ReadAllLines(path);
             textBox1.Text = lines[4];
             textBox3.Text = lines[1];
-            if (lines[7] == "1")
-                radioButton4.Checked = true;
-            else
-                radioButton5.Checked = true;
+            System.NumberOfServers = int.Parse(lines[1]);
+            System.StoppingNumber = int.Parse(lines[4]);
 
-            if (lines[10] == "1")
+            if (lines[7] == "1")
+            {
+                radioButton4.Checked = true;
+                System.StoppingCriteria = Enums.StoppingCriteria.NumberOfCustomers;
+
+            }
+            else if (lines[7] == "2")
+            {
+                radioButton5.Checked = true;
+                System.StoppingCriteria = Enums.StoppingCriteria.SimulationEndTime;
+            }
+
+            if (lines[10] == "1")//selection method 
+            {
                 radioButton1.Checked = true;
-            else
+                System.SelectionMethod = Enums.SelectionMethod.HighestPriority;
+            }
+            else if (lines[10] == "2")
+            {
                 radioButton2.Checked = true;
+                radioButton3.Checked = false;
+                System.SelectionMethod = Enums.SelectionMethod.Random;
+            }
+            else
+            {
+                radioButton3.Checked = true;
+                System.SelectionMethod = Enums.SelectionMethod.LeastUtilization;
+            }
+         
+            int temp = 0;
             textBox2.Text = "Time    probapility \n ";
-            for (int i = 13; lines[i].Length!=0; i++)
+            for (int i = 13; lines[i].Length != 0; i++)
             {
                 TimeDistribution t = new TimeDistribution();
                 string[] arr = lines[i].Split(',');
                 t.Time = int.Parse(arr[0]);
                 t.Probability = decimal.Parse(arr[1]);
-                textBox2.Text+= t.Time.ToString()+"    " + t.Probability.ToString()+"\t";
+                textBox2.Text += t.Time.ToString() + "    " + t.Probability.ToString() + "\t";
                 list.Add(t);
+                temp = i;
             }
+            temp += 3;
+            System.InterarrivalDistribution = list;
 
-            //textBox2.Text = "Time    probapility ";
-            
-            //for (int i=0;i<list.Count;i++)
-            //    textBox2.Text += list[i].Time+"    "+ list[i].Probability+"\n";
-            
+            for (int j = 0; j < System.NumberOfServers; j++)
+
+            {
+                List<TimeDistribution> tlist = new List<TimeDistribution>();
+                Server S = new Server();
+
+                for (int g = temp;g < lines.Length; g++)
+                {
+                    TimeDistribution t = new TimeDistribution();
+                    string[] arr = lines[g].Split(',');
+                    if (arr.Length == 1) { break; }
+                    t.Time = int.Parse(arr[0]);
+                    t.Probability = decimal.Parse(arr[1]);
+                    textBox2.Text += t.Time.ToString() + "    " + t.Probability.ToString() + "\t";
+                    tlist.Add(t);
+                    temp = g;
+                }
+                S.TimeDistribution = tlist;
+                S.ID = j + 1;
+                Servers.Add(S);
+                temp += 3;
+            }
+            System.Servers = Servers;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            read_testCase(1);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -78,54 +118,43 @@ namespace MultiQueueSimulation
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
         {
-            string[] lines = File.ReadAllLines("C:\\Users\\aisha\\source\\repos\\sohaila-ashraf-albdAllah\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase2.txt");
-            textBox1.Text = lines[4];
-            textBox3.Text = lines[1];
-            if (lines[7] == "1")
-                radioButton4.Checked = true;
-            else
-                radioButton5.Checked = true;
-
-            if (lines[10] == "1")
-                radioButton1.Checked = true;
-            else
-                radioButton2.Checked = true;
-            textBox2.Text = "Time    probapility \n ";
-            for (int i = 13; lines[i].Length != 0; i++)
-            {
-                TimeDistribution t = new TimeDistribution();
-                string[] arr = lines[i].Split(',');
-                t.Time = int.Parse(arr[0]);
-                t.Probability = decimal.Parse(arr[1]);
-                textBox2.Text += t.Time.ToString() + "    " + t.Probability.ToString() + "\t";
-                list.Add(t);
-            }
+            read_testCase(2);
         }
 
         private void radioButton8_CheckedChanged(object sender, EventArgs e)
         {
-            string[] lines = File.ReadAllLines("C:\\Users\\aisha\\source\\repos\\sohaila-ashraf-albdAllah\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase3.txt");
-            textBox1.Text = lines[4];
-            textBox3.Text = lines[1];
-            if (lines[7] == "1")
-                radioButton4.Checked = true;
-            else
-                radioButton5.Checked = true;
+            read_testCase(3);
+        }
 
-            if (lines[10] == "1")
-                radioButton1.Checked = true;
-            else
-                radioButton2.Checked = true;
-            textBox2.Text = "Time    probapility \n ";
-            for (int i = 13; lines[i].Length != 0; i++)
-            {
-                TimeDistribution t = new TimeDistribution();
-                string[] arr = lines[i].Split(',');
-                t.Time = int.Parse(arr[0]);
-                t.Probability = decimal.Parse(arr[1]);
-                textBox2.Text += t.Time.ToString() + "    " + t.Probability.ToString() + "\t";
-                list.Add(t);
-            }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Graph graph = new Graph(System);
+            graph.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            
+            simulationTable table = new simulationTable(System);
+            table.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            radioButton3.Checked = false;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            System.Build_Distribution_table(System.InterarrivalDistribution);
+            System.BuildServerTable(System.Servers);
+            System.Simulate();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string TestingResults = TestingManager.Test(System, Constants.FileNames.TestCase2);
+            MessageBox.Show(TestingResults);
         }
     }
 }
