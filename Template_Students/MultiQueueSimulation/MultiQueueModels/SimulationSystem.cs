@@ -122,19 +122,20 @@ namespace MultiQueueModels
             }
             return availableServers.Count;
         }
-        public int CalcLeastUtilizationServer()
+        public int CalcLeastUtilizationServer(List<Server> ServerUtiliztion)
         {
-            int min = 0 , indx = 0;
-            for(int i = 0; i < NumberOfServers; i++)
+            int min = 10000000, indx = 0;
+            for (int i = 0; i < ServerUtiliztion.Count; i++)
             {
+                TotalWorkingTimeServer = 0;
                 for (int j = 0; j < SimulationTable.Count; j++)
                 {
-                    if (SimulationTable[j].ServerIndex == Servers[i].ID)
+                    if (SimulationTable[j].ServerIndex == ServerUtiliztion[i].ID)
                     {
                         TotalWorkingTimeServer += SimulationTable[j].ServiceTime;
                     }
                 }
-                if(TotalWorkingTimeServer >= min)
+                if (TotalWorkingTimeServer < min)
                 {
                     min = TotalWorkingTimeServer;
                     indx = i;
@@ -198,9 +199,9 @@ namespace MultiQueueModels
                     }
                     else if (SelectionMethod == Enums.SelectionMethod.LeastUtilization)
                     {
-                        LeastUtilizationServers = CalcLeastUtilizationServer();
-                        newCustomer.AssignedServer = Servers[LeastUtilizationServers];
-                        ServerIndex = Servers[LeastUtilizationServers].ID - 1;
+                        LeastUtilizationServers = CalcLeastUtilizationServer(availableServers);
+                        newCustomer.AssignedServer = availableServers[LeastUtilizationServers];
+                        ServerIndex = availableServers[LeastUtilizationServers].ID - 1;
                     }
                     newCustomer.ServerIndex = ServerIndex + 1;
                     if (newCustomer.AssignedServer.last_finish_time > newCustomer.ArrivalTime)

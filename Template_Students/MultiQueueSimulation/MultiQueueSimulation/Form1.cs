@@ -29,7 +29,7 @@ namespace MultiQueueSimulation
         public void read_testCase(int n)
         {
             string path = string.Empty;
-            path = ("D:\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase" + n + ".txt");
+            path = ("C:\\Material 4 term 1\\M&S\\labs\\Template_Students\\Simulation-Modeling-MultiQueueSimulation\\Template_Students\\MultiQueueSimulation\\MultiQueueSimulation\\TestCases\\TestCase" + n + ".txt");
             string[] lines = File.ReadAllLines(path);
             numberOfTestCase = n;
             textBox1.Text = lines[4];

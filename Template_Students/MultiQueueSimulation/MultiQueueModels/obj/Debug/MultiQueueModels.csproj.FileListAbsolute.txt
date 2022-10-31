@@ -52,3 +52,9 @@ C:\Users\Al Mostafa\Desktop\Simulation-Modeling-MultiQueueSimulation\Template_St
 C:\Users\Al Mostafa\Desktop\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.csproj.CoreCompileInputs.cache
 C:\Users\Al Mostafa\Desktop\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.dll
 C:\Users\Al Mostafa\Desktop\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\bin\Debug\MultiQueueModels.dll
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\bin\Debug\MultiQueueModels.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.csproj.AssemblyReference.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.csproj.CoreCompileInputs.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.dll
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueModels\obj\Debug\MultiQueueModels.pdb

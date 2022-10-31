@@ -146,3 +146,19 @@ D:\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulati
 D:\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.CopyComplete
 D:\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.exe
 D:\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.AssemblyReference.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.SuggestedBindingRedirects.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.Form1.resources
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.Graph.resources
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.Properties.Resources.resources
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.simulationTable.resources
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.GenerateResource.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.CoreCompileInputs.cache
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.exe
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\bin\Debug\MultiQueueSimulation.exe.config
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\bin\Debug\MultiQueueSimulation.exe
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\bin\Debug\MultiQueueSimulation.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\bin\Debug\MultiQueueModels.dll
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\bin\Debug\MultiQueueModels.pdb
+C:\Material 4 term 1\M&S\labs\Template_Students\Simulation-Modeling-MultiQueueSimulation\Template_Students\MultiQueueSimulation\MultiQueueSimulation\obj\Debug\MultiQueueSimulation.csproj.CopyComplete
