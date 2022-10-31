@@ -70,7 +70,7 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(16, 113);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(102, 17);
+            this.radioButton3.Size = new System.Drawing.Size(131, 21);
             this.radioButton3.TabIndex = 0;
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Least utilization ";
@@ -81,7 +81,7 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(16, 78);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(64, 17);
+            this.radioButton2.Size = new System.Drawing.Size(82, 21);
             this.radioButton2.TabIndex = 5;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Random";
@@ -92,7 +92,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Location = new System.Drawing.Point(16, 43);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(98, 17);
+            this.radioButton1.Size = new System.Drawing.Size(125, 21);
             this.radioButton1.TabIndex = 4;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Highest Priority";
@@ -114,7 +114,7 @@
             this.radioButton5.AutoSize = true;
             this.radioButton5.Location = new System.Drawing.Point(22, 97);
             this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(117, 17);
+            this.radioButton5.Size = new System.Drawing.Size(152, 21);
             this.radioButton5.TabIndex = 1;
             this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Simulation end time";
@@ -125,7 +125,7 @@
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(22, 51);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(127, 17);
+            this.radioButton4.Size = new System.Drawing.Size(164, 21);
             this.radioButton4.TabIndex = 0;
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Number of customers";
@@ -148,7 +148,7 @@
             this.radioButton8.AutoSize = true;
             this.radioButton8.Location = new System.Drawing.Point(33, 103);
             this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(82, 17);
+            this.radioButton8.Size = new System.Drawing.Size(105, 21);
             this.radioButton8.TabIndex = 2;
             this.radioButton8.TabStop = true;
             this.radioButton8.Text = "Test Case 3";
@@ -160,7 +160,7 @@
             this.radioButton7.AutoSize = true;
             this.radioButton7.Location = new System.Drawing.Point(33, 67);
             this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(82, 17);
+            this.radioButton7.Size = new System.Drawing.Size(105, 21);
             this.radioButton7.TabIndex = 1;
             this.radioButton7.TabStop = true;
             this.radioButton7.Text = "Test Case 2";
@@ -172,7 +172,7 @@
             this.radioButton6.AutoSize = true;
             this.radioButton6.Location = new System.Drawing.Point(33, 33);
             this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(82, 17);
+            this.radioButton6.Size = new System.Drawing.Size(105, 21);
             this.radioButton6.TabIndex = 0;
             this.radioButton6.TabStop = true;
             this.radioButton6.Text = "Test Case 1";
@@ -193,7 +193,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(407, 484);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(118, 20);
+            this.textBox1.Size = new System.Drawing.Size(118, 22);
             this.textBox1.TabIndex = 6;
             // 
             // label1
@@ -201,7 +201,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(253, 484);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.Size = new System.Drawing.Size(114, 17);
             this.label1.TabIndex = 7;
             this.label1.Text = "stopping number";
             // 
@@ -218,7 +218,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(25, 484);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 13);
+            this.label2.Size = new System.Drawing.Size(118, 17);
             this.label2.TabIndex = 10;
             this.label2.Text = "Number of server";
             // 
@@ -226,7 +226,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(165, 484);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(74, 20);
+            this.textBox3.Size = new System.Drawing.Size(74, 22);
             this.textBox3.TabIndex = 9;
             // 
             // button4
@@ -251,7 +251,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(80, 33);
+            this.button2.Location = new System.Drawing.Point(69, 35);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(159, 74);
             this.button2.TabIndex = 13;

@@ -45,7 +45,7 @@ namespace MultiQueueModels
         public void calculate_system_Performance(SimulationSystem S_sys)//d
         {
 
-            S_sys.waitingQu = S_sys.waitingCustomersInQu();
+            S_sys.waitingQu = S_sys.WaitingCustomersInQu();
             if (S_sys.SimulationTable.Count == 0)
             {
                 AverageWaitingTime = 0;
@@ -60,7 +60,7 @@ namespace MultiQueueModels
         }
         public void calculate_server_Performance(SimulationSystem S_sys)//d
         {
-            S_sys.calculate_TotalSimulationTime();
+            S_sys.Calculate_TotalSimulationTime();
             for (int i = 0; i < S_sys.Servers.Count; i++)
             {
                 S_sys.Servers[i].calculate_workingtimeOfServer(S_sys);

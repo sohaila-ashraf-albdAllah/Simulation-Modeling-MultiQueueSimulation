@@ -28,6 +28,8 @@ namespace MultiQueueModels
 
         public Dictionary<int, int> waitingQu = new Dictionary<int, int>();//pls
         List<Server> availableServers;//pls
+        public int LeastUtilizationServers;//pls
+        public int TotalWorkingTimeServer;//pls
         public int TotalSimulationTime;//pls
 
         ///////////// OUTPUTS /////////////
@@ -35,7 +37,7 @@ namespace MultiQueueModels
         public PerformanceMeasures PerformanceMeasures { get; set; }
 
         /// ///////////////////////////////////////////////////////////
-        public Dictionary<int, int> waitingCustomersInQu()//d
+        public Dictionary<int, int> WaitingCustomersInQu()//d
         {
             int count = 0;
             int waitingTime = 0;
@@ -69,7 +71,7 @@ namespace MultiQueueModels
                 Build_Distribution_table(numOfServers[i].TimeDistribution);
             }
         }
-        public void calculate_TotalSimulationTime()//d
+        public void Calculate_TotalSimulationTime()//d
         {
             int totalTime = -1;
             for (int i = 0; i < SimulationTable.Count; i++)
@@ -82,7 +84,7 @@ namespace MultiQueueModels
             }
             TotalSimulationTime = totalTime;
         }
-        public int checkRange(List<TimeDistribution> Table, int Random)//d
+        public int CheckRange(List<TimeDistribution> Table, int Random)//d
         {
             int T = 0;
             for (int i = 0; i < Table.Count; i++)
@@ -108,7 +110,7 @@ namespace MultiQueueModels
             }
             return result;
         }
-        public int idleServersList(int arrivalTimeOfCustomer)//d
+        public int IdleServersList(int arrivalTimeOfCustomer)//d
         {
             availableServers = new List<Server>();
             for (int i = 0; i < Servers.Count; i++)
@@ -119,6 +121,26 @@ namespace MultiQueueModels
                 }
             }
             return availableServers.Count;
+        }
+        public int CalcLeastUtilizationServer()
+        {
+            int min = 0 , indx = 0;
+            for(int i = 0; i < NumberOfServers; i++)
+            {
+                for (int j = 0; j < SimulationTable.Count; j++)
+                {
+                    if (SimulationTable[j].ServerIndex == Servers[i].ID)
+                    {
+                        TotalWorkingTimeServer += SimulationTable[j].ServiceTime;
+                    }
+                }
+                if(TotalWorkingTimeServer >= min)
+                {
+                    min = TotalWorkingTimeServer;
+                    indx = i;
+                }
+            }
+            return indx;
         }
 
         public void Simulate()
@@ -133,18 +155,23 @@ namespace MultiQueueModels
             lastCustomer.InterArrival = 0;
             while (true)
             {
-                if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.NumberOfCustomers) && existingCustomerNumber > StoppingNumber)
+                if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.NumberOfCustomers) 
+                    && existingCustomerNumber > StoppingNumber)
                 {
                     break;
                 }
-                else if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.SimulationEndTime) && TotalSimulationTime > StoppingNumber)
+                else if (StoppingCriteria == (MultiQueueModels.Enums.StoppingCriteria.SimulationEndTime))
                 {
-                    break;
+                    Calculate_TotalSimulationTime();
+                    if (TotalSimulationTime > StoppingNumber)
+                    {
+                        break;
+                    }
                 }
                 SimulationCase newCustomer = new SimulationCase();
                 newCustomer.CustomerNumber = existingCustomerNumber;
                 newCustomer.RandomInterArrival = interArrivalRandom.Next(1, 100);
-                newCustomer.InterArrival = checkRange(InterarrivalDistribution, newCustomer.RandomInterArrival);
+                newCustomer.InterArrival = CheckRange(InterarrivalDistribution, newCustomer.RandomInterArrival);
                 if (existingCustomerNumber == 1)
                 {
                     newCustomer.ArrivalTime = lastCustomer.ArrivalTime;
@@ -154,10 +181,10 @@ namespace MultiQueueModels
                     newCustomer.ArrivalTime = lastCustomer.ArrivalTime + newCustomer.InterArrival;
                 }
                 //if there is a avalid servers
-                if (idleServersList(newCustomer.ArrivalTime) > 0)
+                if (IdleServersList(newCustomer.ArrivalTime) > 0)
                 {
                     newCustomer.TimeInQueue = 0;
-                    if (SelectionMethod == Enums.SelectionMethod.HighestPriority)//d?
+                    if (SelectionMethod == Enums.SelectionMethod.HighestPriority)//d
                     {
                         newCustomer.AssignedServer = availableServers[0];
                         ServerIndex = availableServers[0].ID - 1;
@@ -168,6 +195,12 @@ namespace MultiQueueModels
                         int RandomServer = ServerRandom.Next(0, maxRang);
                         newCustomer.AssignedServer = availableServers[RandomServer];
                         ServerIndex = availableServers[RandomServer].ID - 1;
+                    }
+                    else if (SelectionMethod == Enums.SelectionMethod.LeastUtilization)
+                    {
+                        LeastUtilizationServers = CalcLeastUtilizationServer();
+                        newCustomer.AssignedServer = Servers[LeastUtilizationServers];
+                        ServerIndex = Servers[LeastUtilizationServers].ID - 1;
                     }
                     newCustomer.ServerIndex = ServerIndex + 1;
                     if (newCustomer.AssignedServer.last_finish_time > newCustomer.ArrivalTime)
@@ -180,7 +213,7 @@ namespace MultiQueueModels
 
                     }
                     newCustomer.RandomService = ServiceRandom.Next(1, 100);           
-                    newCustomer.ServiceTime = checkRange(newCustomer.AssignedServer.TimeDistribution, newCustomer.RandomService);
+                    newCustomer.ServiceTime = CheckRange(newCustomer.AssignedServer.TimeDistribution, newCustomer.RandomService);
                     newCustomer.EndTime = newCustomer.StartTime + newCustomer.ServiceTime;
                     Servers[ServerIndex].last_finish_time = newCustomer.EndTime;
                 }
@@ -192,7 +225,7 @@ namespace MultiQueueModels
                     newCustomer.StartTime = newCustomer.AssignedServer.last_finish_time;
                     newCustomer.TimeInQueue = newCustomer.StartTime - newCustomer.ArrivalTime;
                     newCustomer.RandomService = ServiceRandom.Next(1, 100);
-                    newCustomer.ServiceTime = checkRange(newCustomer.AssignedServer.TimeDistribution,newCustomer.RandomService);
+                    newCustomer.ServiceTime = CheckRange(newCustomer.AssignedServer.TimeDistribution,newCustomer.RandomService);
                     newCustomer.EndTime = newCustomer.StartTime + newCustomer.ServiceTime;
                     newCustomer.ServerIndex = ServerIndex + 1;
                     Servers[ServerIndex].last_finish_time = newCustomer.EndTime;
